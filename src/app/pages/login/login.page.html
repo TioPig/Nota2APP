@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="colorAzul">
+    <ion-img src="assets/images/Logo_DuocUC.svg"></ion-img>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+  <ion-img
+  src="assets/images/login.svg"
+  alt="The Wisconsin State Capitol building in Madison, WI at night"
+></ion-img>
+</ion-item>
+ <ion-item>
+  <ion-label position="floating"> USUARIO</ion-label>
+  <ion-input [(ngModel)]="formLogin.usuario" placeholder="ingrese su usuario"></ion-input>
+ </ion-item>
+
+
+ <ion-item>
+  <ion-label position="floating"> CONTRASEÑA</ion-label>
+  <ion-input [(ngModel)]="formLogin.password" type="password" placeholder="ingrese su contraseña"></ion-input>
+ </ion-item>
+
+
+<ion-button (click)="iniciarSesion()" shape="block" expand="full">Iniciar sesion</ion-button>
+
+</ion-content>
