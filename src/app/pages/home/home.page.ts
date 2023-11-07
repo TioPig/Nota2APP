@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import { Storage } from '@ionic/storage-angular';
 export class HomePage implements OnInit {
 
   mensaje: string = "";
-  constructor(private rutaActiva : ActivatedRoute, private storage: Storage) { 
+  constructor(private rutaActiva : ActivatedRoute, private storage: Storage, private authService: AuthService) { 
 
     this.rutaActiva.queryParams.subscribe(params => {
 
@@ -32,4 +33,8 @@ export class HomePage implements OnInit {
   }
 
 
+  login() {
+    this.authService.login("italo", "1234");
+
+ }
 }

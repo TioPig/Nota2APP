@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,11 @@ export class LoginPage implements OnInit {
     await this.storage.create();
   }
 
+
+
+
+
+
   iniciarSesion()
   {
 
@@ -45,7 +51,8 @@ export class LoginPage implements OnInit {
 
     //Guardando info en el storage
 
-    this.storage.set("nombreUsuario","Italo")
+    this.storage.set("nombreUsuario",this.formLogin.usuario)
+    this.storage.set("password",this.formLogin.password)
     
 
 
