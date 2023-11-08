@@ -9,9 +9,10 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-button (click)="verStorage()">Ver datos Storage</ion-button>
-
-
+  <ion-button (click)="verStorage()" shape="block" expand="full">Ver datos Storage</ion-button>
+  <ion-input [(ngModel)]="formPoke.pokeName" placeholder="Ingrese Nombre o ID Pokemon" class="textoCentrado" ></ion-input>
+  <ion-button (click)="cambiarPokemon()" shape="block" expand="full">Generar Pokemon</ion-button>
+  <ion-img src={{urlPoke}}></ion-img>
 
   
 </ion-content>

@@ -19,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'qr',
-    loadChildren: () => import('./pages/qr/qr.module').then( m => m.QrPageModule)
+    loadChildren: () => import('./pages/qr/qr.module').then( m => m.QrPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'not-found',

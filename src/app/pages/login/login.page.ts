@@ -3,7 +3,6 @@ import { NavigationExtras, Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastController } from '@ionic/angular';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -11,41 +10,48 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 })
 
 export class LoginPage implements OnInit{
-  loginForm = this.formBuilder.group({
-    usuario: ['', [Validators.required]],
-    password: ['', Validators.required],
-  });
+
+  formLogin = {
+    usuario: "",
+    password: ""
+  };
+
+  usuario: string =""
+  password: string =""
 
   constructor(
     private router: Router,
     private storage: Storage,
     private authService: AuthService,
-    private toastController: ToastController,
-    private formBuilder: FormBuilder
+    private toastController: ToastController
   ) {  }
 
   async ngOnInit() {
-    await this.storage.create();
+    await this.storage.create()
   }
 
   async iniciarSesion() {
-    const autenticado = this.authService.login(this.loginForm.value.usuario, this.loginForm.value.password);
+    const usuario = this.formLogin.usuario
+    const password = this.formLogin.password
+    const autenticado = this.authService.login(usuario, password);
     
     if (autenticado) {
       // Autenticación exitosa, redirige al usuario a la página de inicio
       let datosEnviar: NavigationExtras = {
         queryParams: {
-          nombreUsuario: this.loginForm.value.usuario
+          nombreUsuario: this.formLogin.usuario
         }
       };
       
       this.router.navigate(['/home'], datosEnviar);
       // Guardando info en el storage
-      this.storage.set("nombreUsuario", this.loginForm.value.usuario);
-      this.storage.set("password", this.loginForm.value.password);
+      this.storage.set("nombreUsuario", this.formLogin.usuario);
+      this.storage.set("password", this.formLogin.password);
   
       // Resetear el formulario
-      this.loginForm.reset();
+      this.formLogin.usuario = ''
+      this.formLogin.password = ''
+
     } else {
       // Autenticación fallida, muestra un mensaje de error
       const toast = await this.toastController.create({

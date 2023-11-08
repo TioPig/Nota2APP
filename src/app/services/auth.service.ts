@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class AuthService {
   authState = new BehaviorSubject(false);
-  constructor(private storage: Storage,) {}
+  constructor(private storage: Storage) {}
 
   isAuthenticated() {
     return this.authState.value;

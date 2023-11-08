@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
+import { ApiService } from 'src/app/apis/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,11 +11,18 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomePage implements OnInit {
 
+  formPoke = {
+    pokeName: ""
+  };
+  pokeName: string = "258";
+  pokemon: any = [];
   mensaje: string = "";
+  urlPoke: string = "";
   constructor(private rutaActiva : ActivatedRoute, 
               private storage: Storage, 
               private authService: AuthService,
-              private router: Router) 
+              private router: Router,
+              private api: ApiService) 
   { 
 
     this.rutaActiva.queryParams.subscribe(params => {
@@ -25,11 +33,23 @@ export class HomePage implements OnInit {
       }
 
     })
+    this.api.getPokemon(this.pokeName).subscribe((res) => {
+      this.pokemon = res
+      this.urlPoke = this.pokemon.sprites.front_default
+      console.log(this.pokemon);
+  
+     }, (error)=>{
+  
+      console.log(error);
+  
+     });
+   }
 
-  }
+  
 
   ngOnInit() {
   }
+  
 
   async verStorage(){
     let nombre = await this.storage.get("nombreUsuario")
@@ -40,4 +60,11 @@ export class HomePage implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  cambiarPokemon(){
+    this.api.getPokemon(this.formPoke.pokeName).subscribe((res) => {
+      this.pokemon = res
+      this.urlPoke = this.pokemon.sprites.front_default
+    })
+    }
 }
