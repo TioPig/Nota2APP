@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,13 +11,17 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HomePage implements OnInit {
 
   mensaje: string = "";
-  constructor(private rutaActiva : ActivatedRoute, private storage: Storage, private authService: AuthService) { 
+  constructor(private rutaActiva : ActivatedRoute, 
+              private storage: Storage, 
+              private authService: AuthService,
+              private router: Router) 
+  { 
 
     this.rutaActiva.queryParams.subscribe(params => {
 
-      if(params ['Usuario'])
+      if(params ['nombreUsuario'])
       {
-        this.mensaje = params ['Usuario']
+        this.mensaje = params ['nombreUsuario']
       }
 
     })
@@ -32,9 +36,8 @@ export class HomePage implements OnInit {
     console.log("Nombre guardado es: " + nombre)
   }
 
-
-  login() {
-    this.authService.login("italo", "1234");
-
- }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }
