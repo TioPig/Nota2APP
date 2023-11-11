@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { ApiService } from 'src/app/apis/api.service';
 import { AuthService } from 'src/app/services/auth.service';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -61,8 +60,10 @@ export class HomePage implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  
   cambiarPokemon(){
-    this.api.getPokemon(this.formPoke.pokeName).subscribe((res) => {
+    
+    this.api.getPokemon(this.formPoke.pokeName.toLowerCase()).subscribe((res) => {
       this.pokemon = res
       this.urlPoke = this.pokemon.sprites.front_default
     })
